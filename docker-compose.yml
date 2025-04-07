@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/tasks
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    command: ["sh", "-c", "until pg_isready -h db -p 5432; do sleep 2; done; flask run --host=0.0.0.0"]  # Waits for db to be ready
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tasks
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+      - ./frontend/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8089:80"
+volumes:
+  postgres_data:
