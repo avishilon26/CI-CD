@@ -12,7 +12,7 @@ WORKDIR /app
 # Copy requirements and install
 COPY requirements.txt requirements.txt
 #RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache-dir -r requirements.txt
+RUN pip install --default-timeout=100 --no-cache-dir -r requirements.txt
 
 
 # Copy the application code
