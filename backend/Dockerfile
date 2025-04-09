@@ -6,9 +6,8 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install system dependencies
-#RUN apt-get update && apt-get install -y postgresql-client
-
-RUN apt-get update -o Acquire::ForceIPv4=true && apt-get install -y postgresql-client
+RUN sed -i 's/http:\/\/deb.debian.org/http:\/\/ftp.debian.org/g' /etc/apt/sources.list
+RUN apt-get update && apt-get install -y postgresql-client
 
 
 # Copy requirements and install
