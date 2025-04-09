@@ -12,6 +12,7 @@ WORKDIR /app
 # Copy requirements and install
 COPY requirements.txt requirements.txt
 #RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt --timeout=100 --retries=10 \
     -i https://pypi.org/simple \
     --trusted-host pypi.org \
