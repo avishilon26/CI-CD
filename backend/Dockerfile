@@ -12,8 +12,8 @@ WORKDIR /app
 # Copy requirements and install
 COPY requirements.txt requirements.txt
 #RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --verbose --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org --no-cache-dir -r requirements.txt --timeout=100 --retries=10
-#RUN pip install --no-cache-dir -r requirements.txt --timeout=100 --retries=10
+#RUN pip install --verbose --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org --no-cache-dir -r requirements.txt --timeout=100 --retries=10
+RUN pip install -r requirements.txt -i https://pypi.doubanio.com/simple
 
 
 # Copy the application code
