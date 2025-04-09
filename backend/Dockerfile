@@ -6,7 +6,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get install -y postgresql-client
+RUN apt-get update && apt-get upgrade -y && apt-get install -y postgresql-client
 
 
 # Copy requirements and install
