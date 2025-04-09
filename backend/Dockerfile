@@ -6,6 +6,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install system dependencies
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
 RUN apt-get update && apt-get install -y postgresql-client
 
 # Copy requirements and install
