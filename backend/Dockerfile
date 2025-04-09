@@ -12,8 +12,8 @@ WORKDIR /app
 # Copy requirements and install
 COPY requirements.txt requirements.txt
 #RUN pip install --no-cache-dir -r requirements.txt
-
-RUN pip install --no-cache-dir -r requirements.txt --timeout=100 --retries=10 --index-url https://pypi.doubanio.com/simple
+RUN pip install --trusted-host=pypi.org --trusted-host=files.pythonhosted.org jinja2
+RUN pip install --no-cache-dir -r requirements.txt --timeout=100 --retries=10
 
 
 # Copy the application code
