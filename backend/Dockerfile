@@ -6,7 +6,10 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y postgresql-client
+#RUN apt-get update && apt-get install -y postgresql-client
+
+RUN apt-get update -o Acquire::ForceIPv4=true && apt-get install -y postgresql-client
+
 
 # Copy requirements and install
 COPY requirements.txt requirements.txt
