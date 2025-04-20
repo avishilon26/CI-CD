@@ -1,0 +1,30 @@
+frontend:
+  configMap:
+    nginxConfigMap: "nginx-config"
+  image:
+    repository: nginx
+    tag: alpine
+  service:
+    type: LoadBalancer
+    port: 8087
+    targetPort: 80
+
+replicaCount: 1
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 80
+ingress:
+  enabled: false

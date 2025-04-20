@@ -1,0 +1,33 @@
+backend:
+  image:
+    repository: avishilon22/backend
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 5000
+  env:
+    - name: DATABASE_URL
+      value: postgresql://postgres:postgres@db:5432/tasks
+
+frontend:
+  image:
+    repository: nginx
+    tag: alpine
+  service:
+    type: ClusterIP
+    port: 80
+
+database:
+  image:
+    repository: postgres
+    tag: "15"
+  service:
+    type: ClusterIP
+    port: 5432
+  env:
+    - name: POSTGRES_USER
+      value: postgres
+    - name: POSTGRES_PASSWORD
+      value: postgres
+    - name: POSTGRES_DB
+      value: tasks
