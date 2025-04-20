@@ -3,8 +3,59 @@ kind: ConfigMap
 metadata:
   name: frontend-html
 data:
-  index.html: |-
-    {{ .Files.Get "files/index.html" | indent 4 }}
+  index.html: |
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task List</title>
+  <script>
+    // Fetch tasks from backend API
+    async function fetchTasks() {
+      const response = await fetch('http://backend:5000/tasks');
+      const data = await response.json();
+      const taskList = document.getElementById('task-list');
+      taskList.innerHTML = ''; // Clear existing tasks
+
+      // Add tasks to the list
+      data.tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.textContent = task;
+        taskList.appendChild(li);
+      });
+    }
+
+    // Add a new task
+    async function addTask() {
+      const taskInput = document.getElementById('task-input');
+      const newTask = taskInput.value;
+      taskInput.value = ''; // Clear the input field
+
+      await fetch('http://backend:5000/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ task: newTask })
+      });
+
+      // Re-fetch the tasks after adding a new one
+      fetchTasks();
+    }
+
+    // Initial task fetch
+    window.onload = fetchTasks;
+  </script>
+</head>
+<body>
+  <h1>Task List</h1>
+  <ul id="task-list"></ul>
+  <input type="text" id="task-input" placeholder="Enter new task">
+  <button onclick="addTask()">Add Task</button>
+</body>
+</html>
 ---
 apiVersion: v1
 kind: ConfigMap
