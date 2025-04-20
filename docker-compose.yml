@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 services:
   backend:
@@ -9,6 +9,7 @@ services:
       - db
     ports:
       - "5000:5000"
+    network_mode: "bridge"
     command: ["sh", "-c", "until pg_isready -h db -p 5432; do sleep 2; done; flask run --host=0.0.0.0"]  # Waits for db to be ready
 
   db:
