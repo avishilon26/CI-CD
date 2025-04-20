@@ -20,16 +20,16 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            # - name: nginx-config
-            #   mountPath: /etc/nginx/conf.d/
-            #   readOnly: true
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/
+              readOnly: true
             - name: frontend-html
               mountPath: /usr/share/nginx/html/
               readOnly: true
       volumes:
-        # - name: nginx-config
-        #   configMap:
-        #     name: nginx-config
+        - name: nginx-config
+          configMap:
+            name: nginx-config
         - name: frontend-html
           configMap:
             name: frontend-html
