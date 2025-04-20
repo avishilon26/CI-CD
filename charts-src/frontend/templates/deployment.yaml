@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: nginxinc/nginx-unprivileged:1.27-alpine
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
           ports:
             - containerPort: 80
           volumeMounts:
