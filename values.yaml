@@ -11,8 +11,8 @@ backend:
 
 frontend:
   image:
-    repository: nginx
-    tag: alpine
+    repository: nginxinc/nginx-unprivileged
+    tag: 1.27-alpine
   service:
     type: ClusterIP
     port: 80
