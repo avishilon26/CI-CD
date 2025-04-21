@@ -7,7 +7,7 @@ backend:
     port: 5000
   env:
     - name: DATABASE_URL
-      value: postgresql://postgres:postgres@db:5432/tasks
+      value: postgresql://backend:backend@db:5432/tasks
 
 replicaCount: 1
 
