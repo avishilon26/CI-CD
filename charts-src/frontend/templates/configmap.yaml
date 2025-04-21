@@ -62,5 +62,13 @@ kind: ConfigMap
 metadata:
   name: nginx-config
 data:
-  default.conf: |-
-    {{ .Files.Get "files/default.conf" | indent 4 }}
+  default.conf: |
+    server {
+      listen 80;
+      server_name localhost;
+
+      location / {
+        root /usr/share/nginx/html;
+        index index.html;
+      }
+    }
