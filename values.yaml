@@ -14,8 +14,9 @@ frontend:
     repository: nginxinc/nginx-unprivileged
     tag: 1.27-alpine
   service:
-    type: ClusterIP
-    port: 80
+    type: LoadBalancer
+    port: 8087
+    targetPort: 80
 
 database:
   image:
