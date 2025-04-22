@@ -13,6 +13,7 @@ frontend:
   image:
     repository: nginxinc/nginx-unprivileged
     tag: 1.27-alpine
+    pullPolicy: Always
   service:
     type: LoadBalancer
     port: 8087
