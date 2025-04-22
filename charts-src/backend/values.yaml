@@ -17,15 +17,20 @@ serviceAccount:
   annotations: {}
   name: ""
 
-livenessProbe:
-  httpGet:
-    path: /
-    port: 5000
-
 readinessProbe:
   httpGet:
     path: /
     port: 5000
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  failureThreshold: 6
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 5000
+  initialDelaySeconds: 15
+  periodSeconds: 10
 
 
 
