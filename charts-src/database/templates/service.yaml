@@ -5,10 +5,10 @@ metadata:
   labels:
     app: {{ include "database.name" . }}
 spec:
-  clusterIP: None
+  type: {{ .Values.database.service.type }}
+  ports:
+    - port: {{ .Values.database.service.port }}
+      targetPort: 5432
+      name: postgres
   selector:
     app: {{ include "database.name" . }}
-  ports:
-    - name: postgres
-      port: 5432
-      targetPort: 5432
