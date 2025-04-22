@@ -5,7 +5,7 @@ metadata:
 spec:
   type: {{ .Values.frontend.service.type }}
   selector:
-    app: frontend
+    app: myapp
   ports:
     - port: {{ .Values.frontend.service.port }}
       targetPort: 80
