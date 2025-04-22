@@ -3,7 +3,7 @@ frontend:
     nginxConfigMap: "nginx-config"
   image:
     repository: nginxinc/nginx-unprivileged
-    tag: 1.27-alpine
+    tag: latest
   service:
     type: LoadBalancer
     port: 8087
