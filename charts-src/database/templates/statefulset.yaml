@@ -3,12 +3,14 @@ kind: StatefulSet
 metadata:
   name: {{ include "database.fullname" . }}
   labels:
+    app: {{ include "database.name" . }}
     {{- include "database.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "database.name" . }}
+  serviceName: {{ include "database.fullname" . }}
   template:
     metadata:
       labels:
@@ -26,11 +28,50 @@ spec:
             {{- end }}
           livenessProbe:
             tcpSocket:
-              port: 5432
-            initialDelaySeconds: 10
-            periodSeconds: 5
+              port: {{ .Values.livenessProbe.tcpSocket.port }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           readinessProbe:
             tcpSocket:
-              port: 5432
-            initialDelaySeconds: 10
-            periodSeconds: 5
+              port: {{ .Values.readinessProbe.tcpSocket.port }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+
+
+
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: {{ include "database.fullname" . }}
+#   labels:
+#     {{- include "database.labels" . | nindent 4 }}
+# spec:
+#   replicas: {{ .Values.replicaCount }}
+#   selector:
+#     matchLabels:
+#       app: {{ include "database.name" . }}
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ include "database.name" . }}
+#     spec:
+#       containers:
+#         - name: {{ include "database.name" . }}
+#           image: "{{ .Values.database.image.repository }}:{{ .Values.database.image.tag }}"
+#           ports:
+#             - containerPort: 5432
+#               name: postgres
+#           env:
+#             {{- with .Values.database.env }}
+#             {{- toYaml . | nindent 12 }}
+#             {{- end }}
+#           livenessProbe:
+#             tcpSocket:
+#               port: 5432
+#             initialDelaySeconds: 10
+#             periodSeconds: 5
+#           readinessProbe:
+#             tcpSocket:
+#               port: 5432
+#             initialDelaySeconds: 10
+#             periodSeconds: 5
