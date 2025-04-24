@@ -10,7 +10,7 @@ services:
     ports:
       - "5000:5000"
     network_mode: "bridge"
-    command: ["sh", "-c", "until pg_isready -h db -p 5432; do sleep 2; done; flask run --host=0.0.0.0"]  # Waits for db to be ready nowff
+    command: ["sh", "-c", "until pg_isready -h db -p 5432; do sleep 2; done; flask run --host=0.0.0.0"]  # Waits for db to be ready nowfffff
   db:
     image: postgres:15
     restart: always
